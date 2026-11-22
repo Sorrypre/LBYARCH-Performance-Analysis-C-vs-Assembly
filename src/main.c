@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 // exported functions from the two kernels
 extern void saxpy_c(int n, float A, float* X, float* Y, float* Z);
@@ -8,6 +9,14 @@ extern void saxpy_asm(int n, float A, float* X, float* Y, float* Z);
 void fill_vector_fixed(float* vec, int n, float val) {
     for (int i = 0; i < n; i++) {
         vec[i] = val;
+    }
+}
+void fill_vector_random_range(float* vec, int n, float min_val, float max_val) {
+    float range = max_val - min_val;
+
+    for (int i = 0; i < n; i++) {
+        float scale = (float)rand() / (float)RAND_MAX;
+        vec[i] = min_val + scale * range;
     }
 }
 int main() {
